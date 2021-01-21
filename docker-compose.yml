@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  artemis-server:
+    depends_on:
+      - mysql
+    image: artemis-server:4.9.0
+    networks:
+      - artemis
+    ports:
+      - 8080:8080
+    volumes:
+      - ~/test/.artemis:/opt/Artemis/config
+
+  mysql:
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=Artemis
+    image: mysql:8.0.22
+    networks:
+      - artemis
+    ports:
+      - 3306:3306
+    volumes:
+      - ~/test/.db:/var/lib/mysql
+
+networks:
+  artemis:
+    driver: bridge
