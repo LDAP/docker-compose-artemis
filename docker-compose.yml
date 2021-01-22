@@ -45,7 +45,7 @@ services:
     ports:
       - 8880:80
       - 8443:443
-      - 8822:2222
+      - "2222:22"
     volumes:
       - ~/test/.gitlab/data:/var/opt/gitlab
       - ~/test/.gitlab/logs:/var/log/gitlab
