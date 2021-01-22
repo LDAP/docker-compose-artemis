@@ -11,6 +11,7 @@ services:
       - 8080:8080
     volumes:
       - ~/test/.artemis:/opt/Artemis/config
+      - ~/test/.artemis-data:/opt/Artemis/data
 
   client:
     image: artemis-client:4.9.0
