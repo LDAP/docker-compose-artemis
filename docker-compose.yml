@@ -54,8 +54,8 @@ services:
       - artemis
 
   jenkins:
-    image: jenkins/jenkins:lts-jdk11
-    privileged: true
+    image: jenkins/jenkins:lts
+    user: root
     ports:
       - 7780:8080
       - 50000:50000
@@ -63,6 +63,7 @@ services:
       - ~/test/.jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker:ro
+      - /usr/bin/com.docker.cli:/usr/bin/com.docker.cli:ro
     networks:
       - artemis
 
