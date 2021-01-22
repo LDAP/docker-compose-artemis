@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  artemis-server:
-    depends_on:
-      - mysql
+  server:
     image: artemis-server:4.9.0
+    depends_on:
+      - db
     networks:
       - artemis
     ports:
@@ -12,19 +12,58 @@ services:
     volumes:
       - ~/test/.artemis:/opt/Artemis/config
 
-  mysql:
+  client:
+    image: artemis-client:4.9.0
+    depends_on:
+      - server
+    networks:
+      - artemis
+    ports:
+      - 80:80
+    environment:
+      - SERVER_NAME=localhost
+      - API_REDIRECT_URL=http://server:8080
+
+  db:
+    image: mysql:8.0.22
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
     environment:
       - MYSQL_USER=root
       - MYSQL_ROOT_PASSWORD=test
       - MYSQL_DATABASE=Artemis
-    image: mysql:8.0.22
     networks:
       - artemis
     ports:
       - 3306:3306
     volumes:
       - ~/test/.db:/var/lib/mysql
+
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    hostname: gitlab
+    ports:
+      - 8880:80
+      - 8443:443
+      - 8822:2222
+    volumes:
+      - ~/test/.gitlab/data:/var/opt/gitlab
+      - ~/test/.gitlab/logs:/var/log/gitlab
+      - ~/test/.gitlab/config:/etc/gitlab
+    networks:
+      - artemis
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    privileged: true
+    ports:
+      - 7780:8080
+      - 50000:50000
+    volumes:
+      - ~/test/.jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+    networks:
+      - artemis
 
 networks:
   artemis:
