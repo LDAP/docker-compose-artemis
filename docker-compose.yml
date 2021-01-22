@@ -2,7 +2,7 @@ version: '3'
 
 services:
   server:
-    image: artemis-server:4.9.0
+    image: artemis-server:latest
     depends_on:
       - db
     networks:
@@ -14,7 +14,7 @@ services:
       - ~/test/.artemis-data:/opt/Artemis/data
 
   client:
-    image: artemis-client:4.9.0
+    image: artemis-client:latest
     depends_on:
       - server
     networks:
