@@ -2,7 +2,10 @@ version: '3'
 
 services:
   server:
-    image: artemis-server:${ARTEMIS_TAG}
+    build:
+      context: https://github.com/LDAP/docker-artemis-server
+      args:    
+        ARTEMIS_VERSION: ${ARTEMIS_VERSION}
     depends_on:
       - db
     networks:
@@ -16,7 +19,10 @@ services:
       - ${ARTEMIS_DATA_DIR}:/opt/Artemis/data
 
   client:
-    image: artemis-client:${ARTEMIS_TAG}
+    build:
+      context: https://github.com/LDAP/docker-artemis-client
+      args:    
+        ARTEMIS_VERSION: ${ARTEMIS_VERSION}
     depends_on:
       - server
     networks:
