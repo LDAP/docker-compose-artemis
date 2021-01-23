@@ -26,6 +26,10 @@ services:
     environment:
       - SERVER_NAME=localhost
       - API_REDIRECT_URL=http://server:8080
+    volumes:
+      - ${CUSTOM_LOGO}:/usr/share/nginx/html/public/images/logo.png
+      - ${CUSTOM_FAVICON}:/usr/share/nginx/html/favicon.ico
+      - ${CUSTOM_PRIVACY_STATEMENT}:/usr/share/nginx/html/public/content/privacy_statement.html
 
   db:
     image: mysql:8.0.22
