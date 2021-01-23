@@ -9,6 +9,8 @@ services:
       - artemis
     ports:
       - 8080:8080
+    environment:
+      - WAIT_FOR="db:3306,gitlab:80"
     volumes:
       - ~/test/.artemis:/opt/Artemis/config
       - ~/test/.artemis-data:/opt/Artemis/data
