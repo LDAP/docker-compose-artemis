@@ -11,7 +11,9 @@ Copy `.env.template` to `.env` and fill in the necessary information. Then run:
 docker-compose up -d
 ```
 
-This will create the directories and put a default configuration into `ARTEMIS_CONFIG_DIR`.
+Docker-Compose downloads and builds the `ARTEMIS_VERSION` set in `.env`. Use `ARTEMIS_VERSION=develop` to build the most current commit. Not recommended.
+
+On startup the containers will create the directories and Artemis puts a default configuration into `ARTEMIS_CONFIG_DIR`.
 Adapt this configuration to your needs. A zipped example configuration for all containers can be requested via mail. (~300mb).
 Artemis may not start until the configuration is adapted properly. As a starting point use:
 
@@ -73,9 +75,9 @@ docker-compose down
 ```bash
 docker-compose down
 ```
-Set the new `ARTEMIS_TAG` in `.env`. If the `ARTEMIS_TAG` is set to `latest`, restating will automatically pull the latest release.
-Make sure to adapt the version in `application.yml` and to fill newly added properties. The container will not overwrite an existing configuration.
+Set the new `ARTEMIS_VERSION` in `.env`. If the `ARTEMIS_VERSION` is set to `develop`, restarting will automatically pull the latest commit.
+Make sure to adapt the version in `application.yml` and to fill in newly added properties. The container will not overwrite an existing configuration.
 
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
