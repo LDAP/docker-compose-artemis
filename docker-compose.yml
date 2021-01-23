@@ -8,6 +8,8 @@ services:
         ARTEMIS_VERSION: ${ARTEMIS_VERSION}
     depends_on:
       - db
+      - gitlab
+      - jenkins
     networks:
       - artemis
     ports:
