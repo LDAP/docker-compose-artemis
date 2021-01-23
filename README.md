@@ -1,6 +1,7 @@
 # Artemis Docker-Compose
 
-This is a complete docker-compose stack to run [Artemis](https://github.com/ls1intum/Artemis).
+This is a complete docker-compose stack to run [Artemis](https://github.com/ls1intum/Artemis)
+using [LDAP/artemis-server](https://github.com/LDAP/docker-artemis-server) and [LDAP/artemis-clinet](https://github.com/LDAP/docker-artemis-client)
 
 ## Getting started
 
@@ -69,7 +70,11 @@ docker-compose down
 ```
 
 ## Updating
+```bash
+docker-compose down
+```
 Set the new `ARTEMIS_TAG` in `.env`. If the `ARTEMIS_TAG` is set to `latest`, restating will automatically pull the latest release.
+Make sure to adapt the version in `application.yml` and to fill newly added properties. The container will not overwrite an existing configuration.
 
 ```bash
 docker-compose up -d
