@@ -3,7 +3,7 @@ version: '3'
 services:
   server:
     build:
-      context: https://github.com/LDAP/docker-artemis-server
+      context: https://github.com/LDAP/docker-artemis-server.git
       args:    
         ARTEMIS_VERSION: ${ARTEMIS_VERSION}
     depends_on:
@@ -20,7 +20,7 @@ services:
 
   client:
     build:
-      context: https://github.com/LDAP/docker-artemis-client
+      context: https://github.com/LDAP/docker-artemis-client.git
       args:    
         ARTEMIS_VERSION: ${ARTEMIS_VERSION}
     depends_on:
