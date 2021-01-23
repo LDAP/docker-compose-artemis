@@ -2,7 +2,7 @@ version: '3'
 
 services:
   server:
-    image: artemis-server:latest
+    image: artemis-server:${ARTEMIS_TAG}
     depends_on:
       - db
     networks:
@@ -12,11 +12,11 @@ services:
     environment:
       - WAIT_FOR="db:3306,gitlab:80"
     volumes:
-      - ~/test/.artemis:/opt/Artemis/config
-      - ~/test/.artemis-data:/opt/Artemis/data
+      - ${ARTEMIS_CONFIG_DIR}:/opt/Artemis/config
+      - ${ARTEMIS_DATA_DIR}:/opt/Artemis/data
 
   client:
-    image: artemis-client:latest
+    image: artemis-client:${ARTEMIS_TAG}
     depends_on:
       - server
     networks:
@@ -31,15 +31,15 @@ services:
     image: mysql:8.0.22
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
     environment:
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=Artemis
     networks:
       - artemis
     ports:
       - 3306:3306
     volumes:
-      - ~/test/.db:/var/lib/mysql
+      - ${MYSQL_DATA_DIR}:/var/lib/mysql
 
   gitlab:
     image: gitlab/gitlab-ce:latest
@@ -49,9 +49,9 @@ services:
       - 8443:443
       - "2222:22"
     volumes:
-      - ~/test/.gitlab/data:/var/opt/gitlab
-      - ~/test/.gitlab/logs:/var/log/gitlab
-      - ~/test/.gitlab/config:/etc/gitlab
+      - ${GITLAB_DATA_DIR}:/var/opt/gitlab
+      - ${GITLAB_LOG_DIR}:/var/log/gitlab
+      - ${GITLAB_CONFIG_DIR}:/etc/gitlab
     networks:
       - artemis
 
@@ -62,7 +62,7 @@ services:
       - 7780:8080
       - 50000:50000
     volumes:
-      - ~/test/.jenkins:/var/jenkins_home
+      - ${JENKINS_DATA_DIR}:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker:ro
       - /usr/bin/com.docker.cli:/usr/bin/com.docker.cli:ro
