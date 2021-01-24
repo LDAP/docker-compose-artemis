@@ -40,7 +40,7 @@ services:
       - ${CUSTOM_PRIVACY_STATEMENT}:/usr/share/nginx/html/public/content/privacy_statement.html
 
   db:
-    image: mysql:8.0.22
+    image: mysql:8.0.23
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
     environment:
       - MYSQL_USER=${MYSQL_USER}
