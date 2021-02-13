@@ -1,0 +1,21 @@
+# Overwrite file for development
+# Usage docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+version: '3'
+
+services:
+  server:
+    volumes:
+      - ${ARTEMIS_DIR}/build/libs/${ARTEMIS_JAR_NAME}:/opt/Artemis/Artemis.jar
+  client:
+    volumes:
+      - ${ARTEMIS_DIR}/build/resources/main/static:/usr/share/nginx/html
+
+  saml:
+    image: jamedjo/test-saml-idp
+    hostname: saml
+    ports:
+      - "9980:8080"
+    volumes:
+      - ./development/saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
+    networks:
+      - artemis

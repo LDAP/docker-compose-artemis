@@ -81,3 +81,18 @@ Make sure to adapt the version in `application.yml` and to fill in newly added p
 ```bash
 docker-compose up --build -d
 ```
+
+## Development
+The repository includes a development overwrite. Set the optional variables in `.env`.
+This mounts the .jar and static files directly from the Artemis directory. Build Artemis with:
+```bash
+# Server as jar
+./gradlew build -x webpack -x test -x jacocoTestCoverageVerification
+# Client
+yarn install
+yarn run webpack:prod
+```
+Then run the stack with:
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
