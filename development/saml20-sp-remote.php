@@ -5,7 +5,7 @@
  * See: https://simplesamlphp.org/docs/stable/simplesamlphp-reference-sp-remote
  */
 
-$metadata['github')] = array(
+$metadata['http://gitlab'] = array(
     'AssertionConsumerService' => 'http://localhost:8880/users/auth/saml/callback',
     'SingleLogoutService' => getenv('SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE'),
     'simplesaml.nameidattribute' => 'uid',
