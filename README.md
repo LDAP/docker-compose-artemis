@@ -20,6 +20,7 @@ Artemis may not start until the configuration is adapted properly. As a starting
 `application-artemis.yml:`
 ```YAML
 artemis:
+    course-archives-path: data/exports/courses
     repo-clone-path: data/repos
     repo-download-clone-path: data/repos-download 
 ...
