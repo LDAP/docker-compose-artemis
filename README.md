@@ -11,11 +11,15 @@ Copy `.env.template` to `.env` and fill in the necessary information. Then run:
 docker-compose up -d
 ```
 
-Docker-Compose downloads and builds the `ARTEMIS_VERSION` set in `.env`. Use `ARTEMIS_VERSION=develop` to build the most current commit. Not recommended.
+Docker-Compose downloads and builds the `ARTEMIS_VERSION` set in `.env`. Use `ARTEMIS_VERSION=develop` to build the most current commit (only for development, testing).
 
 On startup the containers will create the directories and Artemis puts a default configuration into `ARTEMIS_CONFIG_DIR`.
 Adapt this configuration to your needs. A zipped example configuration for all containers can be requested via mail. (~300mb).
-Artemis may not start until the configuration is adapted properly. As a starting point use:
+Artemis may not start until the configuration is adapted properly. 
+
+Follow the instructions [here](https://github.com/ls1intum/Artemis/blob/develop/docs/dev/setup/jenkins-gitlab.rst) to set up GitLab and Jenkins.
+
+As a starting point for Artemis use:
 
 `application-artemis.yml:`
 ```YAML
