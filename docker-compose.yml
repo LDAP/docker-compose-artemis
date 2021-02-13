@@ -13,7 +13,7 @@ services:
     networks:
       - artemis
     ports:
-      - 8080:8080
+      - "${ARTEMIS_SERVER_PORT}:8080"
     environment:
       - WAIT_FOR="db:3306,gitlab:80"
     volumes:
@@ -30,7 +30,7 @@ services:
     networks:
       - artemis
     ports:
-      - 80:80
+      - "${ARTEMIS_CLIENT_PORT}:80"
     environment:
       - SERVER_NAME=localhost
       - API_REDIRECT_URL=http://server:8080
@@ -49,7 +49,7 @@ services:
     networks:
       - artemis
     ports:
-      - 3306:3306
+      - "${MYSQL_PORT}:3306"
     volumes:
       - ${MYSQL_DATA_DIR}:/var/lib/mysql
 
@@ -57,9 +57,9 @@ services:
     image: gitlab/gitlab-ce:latest
     hostname: gitlab
     ports:
-      - 8880:80
-      - 8443:443
-      - "2222:22"
+      - "${GITLAB_HTTP_PORT}:80"
+      - "${GITLAB_HTTPS_PORT}:443"
+      - "${GITLAB_SSH_PORT}:22"
     volumes:
       - ${GITLAB_DATA_DIR}:/var/opt/gitlab
       - ${GITLAB_LOG_DIR}:/var/log/gitlab
@@ -71,7 +71,7 @@ services:
     image: jenkins/jenkins:lts
     user: root
     ports:
-      - 7780:8080
+      - "${JENKINS_HTTP_PORT}:8080"
       - 50000:50000
     volumes:
       - ${JENKINS_DATA_DIR}:/var/jenkins_home
