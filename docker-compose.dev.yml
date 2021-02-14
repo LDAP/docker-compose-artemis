@@ -17,5 +17,6 @@ services:
       - "9980:8080"
     volumes:
       - ./development/saml20-sp-remote.php:/var/www/simplesamlphp/metadata/saml20-sp-remote.php
+      - ./development/config.php:/var/www/simplesamlphp/config/config.php
     networks:
       - artemis
