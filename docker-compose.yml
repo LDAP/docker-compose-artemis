@@ -55,7 +55,7 @@ services:
       - ${MYSQL_DATA_DIR}:/var/lib/mysql
 
   gitlab:
-    image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:14.1.2-ce.0
     hostname: gitlab
     ports:
       - "${GITLAB_HTTP_PORT}:80"
