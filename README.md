@@ -1,7 +1,7 @@
 # Artemis Docker-Compose
 
 This is a complete docker-compose stack to run [Artemis](https://github.com/ls1intum/Artemis)
-using [LDAP/artemis-server](https://github.com/LDAP/docker-artemis-server) and [LDAP/artemis-clinet](https://github.com/LDAP/docker-artemis-client)
+using [LDAP/artemis-server](https://github.com/LDAP/docker-artemis-server) and [LDAP/artemis-client](https://github.com/LDAP/docker-artemis-client)
 
 ## Getting started
 
@@ -92,10 +92,9 @@ The repository includes a development overwrite. Set the optional variables in `
 This mounts the .jar and static files directly from the Artemis directory. Build Artemis with:
 ```bash
 # Server as jar
-./gradlew build -x webpack -x test -x jacocoTestCoverageVerification
+./gradlew build -x webapp -x test -x jacocoTestCoverageVerification
 # Client
-yarn install
-yarn run webpack:prod
+APP_VERSION=$(./gradlew properties -q | grep "^version:" | awk '{print $2}') NODE_OPTIONS="--max_old_space_size=6144" npm run webapp:prod
 ```
 Then run the stack with:
 ```bash
